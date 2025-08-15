@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { InputField } from "./components/InputField/InputField";
 import { DataTable } from "./components/DataTable/DataTable";
+import type { Column } from "./components/DataTable/DataTable";
 
 interface Person {
   name: string;
@@ -8,31 +9,28 @@ interface Person {
 }
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState("");
 
   const data: Person[] = [
-    { name: "John Doe", age: 25 },
-    { name: "Jane Smith", age: 30 },
-    { name: "Sam Wilson", age: 22 },
+    { name: "Alice", age: 28 },
+    { name: "Bob", age: 35 },
   ];
 
-  const columns = [
+  const columns: Column<Person>[] = [
     { key: "name", header: "Name" },
     { key: "age", header: "Age" },
-  ] as { key: keyof Person; header: string }[];
+  ];
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-10">
       {/* InputField Example */}
-      <div className="max-w-sm">
-        <InputField
-          label="Username"
-          placeholder="Enter your username"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          helperText="This is a helper text."
-        />
-      </div>
+      <InputField
+        label="Username"
+        placeholder="Enter username"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        helperText="Enter your username"
+      />
 
       {/* DataTable Example */}
       <DataTable<Person>
